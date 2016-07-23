@@ -1,8 +1,8 @@
-const host = '127.0.0.1';
+const host = 'localhost';
 const webpackPort = 9095;
 
 module.exports = {
   host,
   webpackPort,
-  baseUrl: `http://${host}:${webpackPort}`
+  baseUrl: `https://${host}:${webpackPort}`
 };

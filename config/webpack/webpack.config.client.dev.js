@@ -3,6 +3,7 @@ const defaultConfig = require('./webpack.config.client');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const _ = require('lodash');
 const devProps = require('./devProps');
+const fs = require('fs')
 
 const devConfig = _.assign(_.clone(defaultConfig), {
   devtool: 'source-map',
@@ -17,7 +18,7 @@ const devConfig = _.assign(_.clone(defaultConfig), {
     )
   }),
   output: _.assign(_.cloneDeep(defaultConfig.output), {
-    publicPath: `http://127.0.0.1:${devProps.webpackPort}/static/`,
+    publicPath: `https://localhost:${devProps.webpackPort}/static/`,
     pathinfo: true,
     crossOriginLoading: 'anonymous'
   }),
@@ -32,6 +33,9 @@ const devConfig = _.assign(_.clone(defaultConfig), {
   devServer: {
     publicPath: `${devProps.baseUrl}/static`,
     host: devProps.host,
+    https: true,
+    key: fs.readFileSync('horizon-key.pem'),
+    cert: fs.readFileSync('horizon-cert.pem'),
     hot: true,
     historyApiFallback: true,
     contentBase: devProps.contentBase,

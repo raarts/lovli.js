@@ -1,4 +1,6 @@
 import path from 'path';
+import fs from 'fs';
+import https from 'https';
 import express from 'express';
 import horizon from '@horizon/server';
 import devProps from '../../config/webpack/devProps';
@@ -13,7 +15,7 @@ app.use('/static', express.static(path.join(process.cwd(), '.build')));
 /**
  * @TODO move the html out of the server dir
  */
-const host = process.env.NODE_ENV === 'production' ? '' : `http://127.0.0.1:${devProps.webpackPort}`;
+const host = process.env.NODE_ENV === 'production' ? '' : `https://localhost:${devProps.webpackPort}`;
 const bundle = `${host}/static/client.bundle.js`;
 const styles = `${host}/static/styles.css`;
 
@@ -34,17 +36,23 @@ app.use('/', (req, res) => {
 const run = () => {
   const port = process.env.PORT || config.port;
 
-  const httpServer = app.listen(port, (err) => {
+  const  options = {
+    key: fs.readFileSync('horizon-key.pem'),
+    cert: fs.readFileSync('horizon-cert.pem'),
+  };
+
+  const server = https.createServer(options, app);
+
+  server.listen(port, (err) => {
     if (err) {
       console.log(err); // eslint-disable-line
       return;
     }
-
-    console.log(`Express listening at http://localhost:${port}`); // eslint-disable-line
+    console.log('Express server running at localhost:' + port);
   });
 
   // @TODO make this configurable
-  const horizonServer = horizon(httpServer, {
+  const horizonServer = horizon(server, {
     auto_create_collection: true,
     auto_create_index: true,
     project_name: 'lovli',
