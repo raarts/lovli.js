@@ -1,7 +1,7 @@
 import Horizon from '@horizon/client';
 
 const horizon = Horizon({
-  secure: false
+  secure: true
 });
 
 horizon.connect();
