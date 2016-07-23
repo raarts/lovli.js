@@ -51,18 +51,7 @@ const run = () => {
     console.log('Express server running at localhost:' + port);
   });
 
-  // @TODO make this configurable
-  const horizonServer = horizon(server, {
-    auto_create_collection: true,
-    auto_create_index: true,
-    project_name: 'lovli',
-    permissions: false, // waiting for additions to permission system atm
-    auth: {
-      allow_anonymous: true,
-      allow_unauthenticated: true,
-      token_secret: config.token_secret
-    }
-  });
+  const horizonServer = horizon(server, config.horizon_options);
 };
 
 export default {
