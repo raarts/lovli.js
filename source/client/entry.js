@@ -2,10 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
+// Root wraps the routes in routes.js in a HorizonConnector
+// and connects the store to them
 import Root from './containers/Root';
-
-// Define the target container for our application
-const rootElement = document.getElementById('root');
 
 // Accept HMR
 if (module.hot) {
@@ -15,7 +14,7 @@ if (module.hot) {
 // Render application to target container
 ReactDOM.render(
   <AppContainer><Root /></AppContainer>,
-  rootElement
+  document.getElementById('root')
 );
 
 // react-hot-loader 3 specific - rerender AppContainer
@@ -26,7 +25,7 @@ if (module.hot) {
     const RootEle = require('./containers/Root').default; // eslint-disable-line
     ReactDOM.render(
       <AppContainer><RootEle /></AppContainer>,
-      rootElement
+      document.getElementById('root')
     );
   });
 }
