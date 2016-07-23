@@ -10,6 +10,11 @@ module.exports = {
       token_secret: 'ztYchtc6ejUxWYiVtY6EFUweA+djd/'
     }
   },
+  github_oauth_options: {
+    path: 'github',
+    id: '6018d5a418338b81e8f0',
+    secret: 'f6f14cbc0ca8f03c93534bdb5ba1199c9f7d0819',
+  },
   title: 'lovli.js | Hello World',
   port: 3000
 };

@@ -1,3 +1,5 @@
+// Wraps the routes in a horizon container
+
 import React from 'react';
 import { Connector as HorizonConnector } from 'horizon-react';
 

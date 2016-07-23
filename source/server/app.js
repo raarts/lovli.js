@@ -52,6 +52,8 @@ const run = () => {
   });
 
   const horizonServer = horizon(server, config.horizon_options);
+  horizonServer.add_auth_provider(horizon.auth.github, config.github_oauth_options);
+
 };
 
 export default {
